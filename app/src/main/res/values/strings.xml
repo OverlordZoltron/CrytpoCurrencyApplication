@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Crytpo Currency</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_top_ten">Top Ten Crypto Currencies</string>
+    <string name="top_ten_string">Current Top Ten Crypto Currencies</string>
+    <string name="title_activity_more_info">MoreInfo</string>
+</resources>
