@@ -30,7 +30,9 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class MainActivity extends AppCompatActivity {
     public static final int TIMEOUT = 5000;
     public final static String TOP_TEN = "TOP TEN";
-    public final static String MORE_INFO = "MORE INFO";
+    public final static String BITCOIN_INFO = "BITCOIN INFO";
+    public final static String ETHEREUM_INFO = "ETHEREUM INFO";
+    private int sent = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +40,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -71,6 +65,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getTopTen(View view){
+        // WebServer Request URL
+        String serverURL = "https://api.coinmarketcap.com/v1/ticker/?limit=10";
+
+        // Use AsyncTask execute Method To Prevent ANR Problem
+        new LongOperation().execute(serverURL);
+    }
+
+    public void getBitcoinInfo(View view){
+        // WebServer Request URL
+        String serverURL = "https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=EUR";
+        sent = 2;
+
+        // Use AsyncTask execute Method To Prevent ANR Problem
+        new LongOperation().execute(serverURL);
+    }
+
+    public void getEthereumInfo(View view){
+        // WebServer Request URL
+        String serverURL = "https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=EUR";
+        sent = 3;
+
+        // Use AsyncTask execute Method To Prevent ANR Problem
+        new LongOperation().execute(serverURL);
+    }
+
+    public void buyCryptoCurrency(View view){
         // WebServer Request URL
         String serverURL = "https://api.coinmarketcap.com/v1/ticker/?limit=10";
 
@@ -131,12 +151,23 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result) {
             // NOTE: You can call UI Element here.
+            if(sent == 2){
+                Intent intent = new Intent(getApplicationContext(),MoreInfo.class);
 
+                intent.putExtra(BITCOIN_INFO, result);
+                startActivity(intent);
+            } else if (sent == 3){
+                Intent intent = new Intent(getApplicationContext(),MoreInfo.class);
 
-            Intent intent = new Intent(getApplicationContext(),TopTen.class);
+                intent.putExtra(ETHEREUM_INFO, result);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(getApplicationContext(),TopTen.class);
 
-            intent.putExtra(TOP_TEN, result);
-            startActivity(intent);
+                intent.putExtra(TOP_TEN, result);
+                startActivity(intent);
+            }
         }
 
     }
