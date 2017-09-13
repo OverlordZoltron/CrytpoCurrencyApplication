@@ -79,11 +79,11 @@ public class TopTen extends AppCompatActivity {
                 JSONObject jsonChildNode = jsonResponse.getJSONObject(i);
 
                 /******* Fetch node values **********/
-                String rank = jsonChildNode.optString("rank").toString();
-                String name = jsonChildNode.optString("name").toString();
+                String rank = jsonChildNode.optString("rank");
+                String name = jsonChildNode.optString("name");
 
                 NumberFormat formatter = NumberFormat.getCurrencyInstance();
-                double priceUSD = Double.parseDouble(jsonChildNode.optString("price_usd").toString());
+                double priceUSD = Double.parseDouble(jsonChildNode.optString("price_usd"));
 
                 String price = formatter.format(priceUSD);
 
