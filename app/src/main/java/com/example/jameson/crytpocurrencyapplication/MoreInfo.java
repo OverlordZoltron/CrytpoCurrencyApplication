@@ -1,6 +1,8 @@
 package com.example.jameson.crytpocurrencyapplication;
 
+import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
+import android.icu.util.ULocale;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,8 +18,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static android.R.attr.name;
+
 public class MoreInfo extends AppCompatActivity {
     ImageView ivImage;
+    TextView info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,8 @@ public class MoreInfo extends AppCompatActivity {
             }
         });
         ivImage = (ImageView) findViewById(R.id.ivInfo);
+        info = (TextView) findViewById(R.id.txtInfo);
+        info.setGravity(Gravity.CENTER_HORIZONTAL);
 
         Bundle extras = getIntent().getExtras();
 
@@ -73,6 +80,7 @@ public class MoreInfo extends AppCompatActivity {
 
             /*********** Process each JSON Node ************/
 
+
             int lengthJsonArr = jsonResponse.length();
 
             for(int i=0; i < lengthJsonArr; i++)
@@ -81,32 +89,38 @@ public class MoreInfo extends AppCompatActivity {
                 JSONObject jsonChildNode = jsonResponse.getJSONObject(i);
 
                 /******* Fetch node values **********/
-                String rank = jsonChildNode.optString("rank").toString();
                 String name = jsonChildNode.optString("name").toString();
 
+                /*USD formatting*/
                 NumberFormat formatter = NumberFormat.getCurrencyInstance();
                 double priceUSD = Double.parseDouble(jsonChildNode.optString("price_usd").toString());
 
                 String price = formatter.format(priceUSD);
 
+                /*Bitcoin price Formatting*/
+                formatter = new DecimalFormat("#0.000");
+                double priceInBitcoin = Double.parseDouble(jsonChildNode.optString("price_btc").toString());
+                String priceBTC = formatter.format(priceInBitcoin);
 
+                /* Euro price formatting */
+                formatter = NumberFormat.getCurrencyInstance(ULocale.GERMANY);
+                double euro = Double.parseDouble(jsonChildNode.optString("price_eur").toString());
+                String euroPrice = formatter.format(euro);
 
+                OutputData += "Name:  "+ name +" "
+                        + "\nPrice(USD):  "+ price +"  "
+                        +"\nPrice in Bitcoin: " + priceBTC + " "
+                        +"\nPrice in Euros: " + euroPrice + " ";
 
-                /*
-                OutputData += " Rank: "+ rank +" "
-                        + "Name: "+ name +" "
-                        + "Price: "+ price +"  "
-                        +"\n";
-
-                */
 
             }
+
             /****************** End Parse Response JSON Data *************/
 
             //topTen.setText(OutputData);
 
             //Show Parsed Output on screen (activity)
-            //info.setText( OutputData );
+            info.setText( OutputData );
 
         } catch (JSONException e) {
 
