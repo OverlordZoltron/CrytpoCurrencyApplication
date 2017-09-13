@@ -89,28 +89,46 @@ public class MoreInfo extends AppCompatActivity {
                 JSONObject jsonChildNode = jsonResponse.getJSONObject(i);
 
                 /******* Fetch node values **********/
-                String name = jsonChildNode.optString("name").toString();
+                String name = jsonChildNode.optString("name");
 
                 /*USD formatting*/
                 NumberFormat formatter = NumberFormat.getCurrencyInstance();
-                double priceUSD = Double.parseDouble(jsonChildNode.optString("price_usd").toString());
-
+                double priceUSD = Double.parseDouble(jsonChildNode.optString("price_usd"));
                 String price = formatter.format(priceUSD);
+
+                /* Using the US Currency format, get markey cap */
+                double marketCap = Double.parseDouble(jsonChildNode.optString("market_cap_usd"));
+                String mrktCap = formatter.format(marketCap);
 
                 /*Bitcoin price Formatting*/
                 formatter = new DecimalFormat("#0.000");
-                double priceInBitcoin = Double.parseDouble(jsonChildNode.optString("price_btc").toString());
+                double priceInBitcoin = Double.parseDouble(jsonChildNode.optString("price_btc"));
                 String priceBTC = formatter.format(priceInBitcoin);
+
+                /*Using the decimal format, format the available supply */
+                formatter = new DecimalFormat("#,###.00");
+                double avlSupp = Double.parseDouble(jsonChildNode.optString("available_supply"));
+                String availSupply = formatter.format(avlSupp);
 
                 /* Euro price formatting */
                 formatter = NumberFormat.getCurrencyInstance(ULocale.GERMANY);
-                double euro = Double.parseDouble(jsonChildNode.optString("price_eur").toString());
+                double euro = Double.parseDouble(jsonChildNode.optString("price_eur"));
                 String euroPrice = formatter.format(euro);
+
+                /* Getting the percent change for the past 24hrs, and the past week */
+                String percentChangeDay = jsonChildNode.optString("percent_change_24h");
+
+                String percentChangeWeek = jsonChildNode.optString("percent_change_7d");
+
 
                 OutputData += "Name:  "+ name +" "
                         + "\nPrice(USD):  "+ price +"  "
                         +"\nPrice in Bitcoin: " + priceBTC + " "
-                        +"\nPrice in Euros: " + euroPrice + " ";
+                        +"\nPrice in Euros: " + euroPrice + " "
+                        +"\nPercent Change (24hrs): " + percentChangeDay + "% "
+                        +"\nPercent Change (Week): " + percentChangeWeek + "% "
+                        +"\nMarket Cap: " + mrktCap + " "
+                        +"\nAvailable Supply: " + availSupply + " ";
 
 
             }
