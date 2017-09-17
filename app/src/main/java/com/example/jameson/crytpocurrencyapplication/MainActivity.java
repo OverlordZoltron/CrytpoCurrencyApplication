@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         // Use AsyncTask execute Method To Prevent ANR Problem
         new LongOperation().execute(serverURL);
         */
-        Intent intent = new Intent(getApplicationContext(),TopTen.class);
+        Intent intent = new Intent(getApplicationContext(),BuyCurrency.class);
 
         //intent.putExtra(TOP_TEN);
         startActivity(intent);
