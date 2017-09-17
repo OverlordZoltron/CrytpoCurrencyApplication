@@ -28,6 +28,10 @@
         <activity
             android:name=".MoreInfo"
             android:label="@string/title_activity_more_info"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BuyCurrency"
+            android:label="@string/title_activity_buy_currency"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

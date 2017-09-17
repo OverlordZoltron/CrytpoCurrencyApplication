@@ -35,12 +35,9 @@ public class MoreInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                        */
             }
         });
+
         ivImage = (ImageView) findViewById(R.id.ivInfo);
         info = (TextView) findViewById(R.id.txtInfo);
         info.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -50,10 +47,12 @@ public class MoreInfo extends AppCompatActivity {
         String bitcoinResult = extras.getString(MainActivity.BITCOIN_INFO);
         String ethereumResult = extras.getString(MainActivity.ETHEREUM_INFO);
 
+        //Checking to see what result information is being brought over
         if(bitcoinResult != null){
             //display bitcoin Image
             ivImage.setImageResource(R.drawable.bitcoin_icon);
         } else {
+            //Display ETH image
             ivImage.setImageResource(R.drawable.ethereum_icon);
         }
 
@@ -66,11 +65,15 @@ public class MoreInfo extends AppCompatActivity {
         try {
 
             /****** Creates a new JSONObject with name/value mappings from the JSON string. ********/
+            // Checking to see what information is being brought over
+            //And setting the JSON Array to what has been brought over
             if(bitcoinResult != null){
                 jsonResponse = new JSONArray(bitcoinResult);
             } else {
                 jsonResponse = new JSONArray(ethereumResult);
             }
+
+
             //jsonResponse = new JSONArray(result);
 
             /***** Returns the value mapped by name if it exists and is a JSONArray. ***/

@@ -91,11 +91,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buyCryptoCurrency(View view){
+        /*
         // WebServer Request URL
         String serverURL = "https://api.coinmarketcap.com/v1/ticker/?limit=10";
 
         // Use AsyncTask execute Method To Prevent ANR Problem
         new LongOperation().execute(serverURL);
+        */
+        Intent intent = new Intent(getApplicationContext(),TopTen.class);
+
+        //intent.putExtra(TOP_TEN);
+        startActivity(intent);
     }
 
 
@@ -152,11 +158,18 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             // NOTE: You can call UI Element here.
             if(sent == 2){
+                //reset sent back to 1
+                sent = 1;
+
+                //Create an intent
                 Intent intent = new Intent(getApplicationContext(),MoreInfo.class);
 
                 intent.putExtra(BITCOIN_INFO, result);
                 startActivity(intent);
             } else if (sent == 3){
+                //reset sent back to 1
+                sent = 1;
+
                 Intent intent = new Intent(getApplicationContext(),MoreInfo.class);
 
                 intent.putExtra(ETHEREUM_INFO, result);

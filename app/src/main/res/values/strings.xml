@@ -4,4 +4,12 @@
     <string name="title_activity_top_ten">Top Ten Crypto Currencies</string>
     <string name="top_ten_string">Current Top Ten Crypto Currencies</string>
     <string name="title_activity_more_info">MoreInfo</string>
+    <string name="title_activity_buy_currency">BuyCurrency</string>
+    <string-array name="currency_types">
+        <item>Bitcoin</item>
+        <item>Ethereum</item>
+        <item>Bitcoin-Cash</item>
+        <item>Ripple</item>
+        <item>Litecoin</item>
+    </string-array>
 </resources>
