@@ -1,5 +1,6 @@
 package com.example.jameson.crytpocurrencyapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,12 +21,14 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 
 import java.net.HttpURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -148,6 +153,33 @@ public class MainActivity extends AppCompatActivity {
 
         //   TextView jsonParsed = (TextView)findViewById(R.id.jsonParsed);
 
+        private String Content;
+        private String Error = null;
+        private ProgressDialog Dialog = new ProgressDialog(MainActivity.this);
+        String data ="";
+        int sizeData = 0;
+        //EditText serverText = (EditText) findViewById(R.id.serverText);
+
+
+        protected void onPreExecute() {
+            // NOTE: You can call UI Element here.
+
+            //Start Progress Dialog (Message)
+
+            Dialog.setMessage("Please wait..");
+            Dialog.show();
+
+            try{
+                // Set Request parameter
+                data +="&" + URLEncoder.encode("data", "UTF-8") + "=";
+
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
+
         @Override
         protected String doInBackground(String... params) {
             /************ Make Post Call To Web Server ***********/
@@ -157,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result) {
             // NOTE: You can call UI Element here.
+            // Close progress dialog
+            Dialog.dismiss();
             if(sent == 2){
                 //reset sent back to 1
                 sent = 1;

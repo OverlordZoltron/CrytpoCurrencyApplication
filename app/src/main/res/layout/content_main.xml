@@ -42,7 +42,7 @@
 
     <Button
         android:id="@+id/btnBitcoin"
-        android:layout_width="112dp"
+        android:layout_width="123dp"
         android:layout_height="54dp"
         android:text="Bitcon Info"
         android:onClick="getBitcoinInfo"
@@ -52,7 +52,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/btnEthereum"
         android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.787"
+        app:layout_constraintHorizontal_bias="0.791"
         android:textColor="@color/buttonText"
         android:background="@color/buttonColor"
         android:padding="10dp"/>
@@ -73,15 +73,15 @@
 
     <Button
         android:id="@+id/btnBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="240dp"
+        android:layout_height="46dp"
         android:text="Buy Crypto Currency"
         android:onClick="buyCryptoCurrency"
         android:layout_marginTop="13dp"
         app:layout_constraintTop_toBottomOf="@+id/btnBitcoin"
-        android:layout_marginRight="89dp"
+        android:layout_marginRight="55dp"
         app:layout_constraintRight_toRightOf="parent"
         android:textColor="@color/buttonText"
         android:background="@color/buttonColor"
-        android:padding="10dp"/>
+        android:padding="10dp" />
 </android.support.constraint.ConstraintLayout>
